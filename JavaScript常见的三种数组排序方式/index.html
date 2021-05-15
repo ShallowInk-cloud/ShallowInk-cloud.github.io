@@ -1,0 +1,571 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;light&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="rgba(192,149,83,.4)">
+  <meta name="description" content="整理下 JavaScript 三种简单的数组排序方式">
+  <meta name="author" content="Shallow">
+  <meta name="keywords" content="">
+  
+  <title>JavaScript常见的三种数组排序方式 - Shallow Ink&#39;s  Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/gundongtiao.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>浅墨赋殇</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_self" href="https://shallowink-cloud.github.io/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_self" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_self" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_self" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_self" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+        <li></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/dmbg-1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JavaScript常见的三种数组排序方式">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-15 13:39" pubdate>
+        2021年5月15日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JavaScript常见的三种数组排序方式</h1>
+            
+            <div class="markdown-body">
+              <h2 id="一、冒泡排序"><a href="#一、冒泡排序" class="headerlink" title="一、冒泡排序"></a>一、冒泡排序</h2><p><strong>冒泡排序</strong> 的英文名是 Bubble Sort ，它是一种比较简单直观的排序算法</p>
+<p>简单来说它会重复走访过要排序的数列，一次比较两个数，如果他们的顺序错误就会将他们交换过来，走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成</p>
+<p>这个算法的名字由来是因为越小的元素会经由交换慢慢”浮”到数列的顶端</p>
+<p><img src="%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F.gif" srcset="/img/loading.gif" lazyload alt="冒泡排序"></p>
+<p><strong>算法思路（以按递增顺序排列为例）：</strong></p>
+<p><strong>1、我们需要做一个内层循环来比较每对相邻元素的大小，如果前面大于后面，就让他们交换位置，我们要让小的数在前面，大的数在后面</strong></p>
+<p><strong>2、当内层循环结束时，在数组最后一位的元素，就一定是这个数组中最大的元素了，这时候除了最后一个元素不用再动以外（所以内层循环每循环一次就可以少循环一次）我们还要再来确定这个数组中第二大的元素，第三大的元素，以此类推，因此我们还需要一层外层循环。如果这个数组有 n 个元素我们就要确定 n - 1 个元素的位置，所以外层循环需要循环的次数就是 n - 1 次</strong></p>
+<p><strong>3、只需要内外两层循环嵌套，就可以把数组排序好啦，虽然实现方式可能有很多种，这只是我个人的想法，代码如下，排序功能已封装成函数，请放心食用：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> myArr = [<span class="hljs-number">89</span>,<span class="hljs-number">34</span>,<span class="hljs-number">76</span>,<span class="hljs-number">15</span>,<span class="hljs-number">98</span>,<span class="hljs-number">25</span>,<span class="hljs-number">67</span>];<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bubbleSort</span>(<span class="hljs-params">arr</span>) </span>&#123;<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; arr.length - <span class="hljs-number">1</span>; i++) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; arr.length - i; j++) &#123;<br>        <span class="hljs-keyword">if</span>(arr[j] &gt; arr[j + <span class="hljs-number">1</span>]) &#123;<br>            <span class="hljs-comment">// 交换两个数的位置</span><br>            <span class="hljs-keyword">var</span> temp = <span class="hljs-number">0</span>;<br>            temp = arr[j];<br>            arr[j] = arr[j + <span class="hljs-number">1</span>];<br>            arr[j + <span class="hljs-number">1</span>] = temp;<br>        &#125;<br>    &#125;<br>&#125;    <br><br>    <span class="hljs-keyword">return</span>  arr;      <br>&#125;<br><br><span class="hljs-built_in">console</span>.log(bubbleSort(myArr));<br></code></pre></td></tr></table></figure>
+
+<h2 id="二、选择排序"><a href="#二、选择排序" class="headerlink" title="二、选择排序"></a>二、选择排序</h2><p><strong>选择排序</strong> 英文叫法是 Selection sort，这也是一种简单直观的排序方法</p>
+<p>这种排序首先会在未排序的数组中找到最小或者最大的元素，存放在排序数组的起始位置</p>
+<p>然后再从未排序的数列中去找到这个数组中第二大或这第二小的数放在已排序的数之后，以此类推，不断重复直到所有元素排列完毕</p>
+<p><img src="%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F.gif" srcset="/img/loading.gif" lazyload alt="选择排序"></p>
+<p><strong>算法思路（以按递增顺序排列为例）：</strong></p>
+<p><strong>1、我们需要内层循环找出未排序数列中的最小值（找最小值可以用之前谁比最小值小谁就替换最小值的思路），循环后找到未排序数列中的最小元素时记录最小的那个元素在数组中的索引值，用索引获得最小值的位置后把它放在数组的第一位，此处注意，如果直接放在第一位会替换第一位数组中原来的元素，我们需要交换最小值的位置，和第一个元素的位置（利用两个变量交换数值的方法）</strong></p>
+<p><strong>2、每经过一次内层循环，我们就能确定一个未排序数组中最小值的位置，在确定倒数第二个数的位置时，最后一个数的位置也自然而然地被确定了，因此数组中有 n 个元素我们就需要进行 n - 1 次内层循环，我们就用用外层循环来保持内层循环的重复进行</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> myArr = [<span class="hljs-number">89</span>,<span class="hljs-number">34</span>,<span class="hljs-number">76</span>,<span class="hljs-number">15</span>,<span class="hljs-number">98</span>,<span class="hljs-number">25</span>,<span class="hljs-number">67</span>];<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">selectSort</span>(<span class="hljs-params">arr</span>) </span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; arr.length - <span class="hljs-number">1</span>; i++) &#123;<br>        <span class="hljs-comment">//i &lt; arr.length - 1 因为排完倒数第二个，倒数第一个数自然在它正确的位置了</span><br>        <span class="hljs-keyword">var</span> index = i;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> j = i + <span class="hljs-number">1</span>; j &lt; arr.length; j++) &#123;<br>            <span class="hljs-comment">// 寻找最小值</span><br>            <span class="hljs-keyword">if</span>(arr[index] &gt; arr[j])&#123;<br>                <span class="hljs-comment">// 保存最小值索引</span><br>                index = j;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment">// 将未排序中的最小数字，放到未排序中的最左侧</span><br>        <span class="hljs-keyword">if</span>(index != i) &#123;<br>            <span class="hljs-keyword">var</span> temp = arr[i];<br>            arr[i] = arr[index];<br>            arr[index] = temp;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> arr;<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(selectSort(myArr));<br></code></pre></td></tr></table></figure>
+
+<h2 id="三、插入排序"><a href="#三、插入排序" class="headerlink" title="三、插入排序"></a>三、插入排序</h2><p><strong>插入排序</strong> 英文称为 Insertion sort ，插入排序也被叫做直接插入排序</p>
+<p>它的基本思想是将一个未排序的元素插入到已经排序好的数组中，从而使得已排序的数组增加一个元素，通过插入不断完善已排序数组的过程，就是排序整个数组的过程。</p>
+<p><img src="%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F.gif" srcset="/img/loading.gif" lazyload alt="插入排序"></p>
+<p><strong>算法思路（以按递增顺序排列为例）：</strong></p>
+<p><strong>1、因为数组中第一个元素前面没有元素可以进行比较，所以我们从第二个元素开始比较，用 current 变量来进行存储当前要和别人比较的元素，用 preIndex变量 来方便我们去找当前准备插入元素之前的元素</strong></p>
+<p><strong>2、内层循环就是按顺序比较插入元素和之前元素的大小，来确定插入元素的位置， preIndex 每比较一次就自减1 ，让准备插入元素和它之前的所有已排序元素都比较一遍，每当待插入元素比前一个数小了，前面的元素就往右挪一个位置，直到前一个数小于待插入数，跳出判断，待插入元素放在前一次判断挪动元素留出的空位上，由于我们提前用 current 保存了要插入的元素，所以要插入的元素不会因为前面的元素覆盖而丢失。</strong></p>
+<p><strong>3、每循环一次内层循环，我们就可以确定一个元素的插入位置，但由于我们内层循环是从第二个元素开始的（也就是索引为 1 的元素），因此如果有 n 个元素，我们就需要 n - 1 次内层循环，内存循环我们用外层循环来实现，外层循环就这么被定义完成了</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> myArr = [<span class="hljs-number">89</span>,<span class="hljs-number">34</span>,<span class="hljs-number">76</span>,<span class="hljs-number">15</span>,<span class="hljs-number">98</span>,<span class="hljs-number">25</span>,<span class="hljs-number">67</span>];<br>        <br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertionSort</span>(<span class="hljs-params">arr</span>) </span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">1</span>; i &lt;= arr.length - <span class="hljs-number">1</span>; i++) &#123;<br>        <span class="hljs-keyword">var</span> preIndex = i - <span class="hljs-number">1</span>;<br>        current = arr[i];<br>        <span class="hljs-keyword">while</span>(preIndex &gt;= <span class="hljs-number">0</span> &amp;&amp; arr[preIndex] &gt; current) &#123;<br>            arr[preIndex + <span class="hljs-number">1</span>] = arr[preIndex];<br>            preIndex--;<br>        &#125;<br>        arr[preIndex + <span class="hljs-number">1</span>] = current;<br>    &#125;<br>    <span class="hljs-keyword">return</span> arr;<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(insertionSort(myArr)); <br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a><strong>总结：</strong></h2><p><strong>选择排序（一种不稳定的排序方法）</strong></p>
+<p><strong>优点</strong>：移动数据的次数已知（n-1次）；</p>
+<p><strong>缺点</strong>：比较次数多。</p>
+<p><strong>冒泡排序</strong></p>
+<p><strong>优点</strong>：稳定；</p>
+<p><strong>缺点</strong>：慢，每次只能移动相邻两个数据。</p>
+<p><strong>插入排序</strong></p>
+<p><strong>优点</strong>：稳定，快；</p>
+<p><strong>缺点</strong>：比较次数不一定，比较次数越少，插入点后的数据移动越多，特别是当数据总量庞大的时候，但用链表可以解决这个问题。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/JavaScript/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F%E6%96%B9%E5%BC%8F/">数组排序方式</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    作者：浅墨赋殇
+                  
+                </p>   
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出哦！
+                  
+                </p>
+              
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/JavaScript%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/">
+                        <span class="hidden-mobile">JavaScript构造函数和原型对象</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+          clientID: 'd1db1ae56fc96adb2cab',
+          clientSecret: '06b6ed5c170a3b0ee400071d5d86d2473dbe30d0',
+          repo: 'ShallowInk-cloud.github.io',
+          owner: 'ShallowInk-cloud',
+          admin: "ShallowInk-cloud",
+          id: '80b243aad0d552950ee9881fa60d7731',
+          language: 'zh-CN',
+          labels: ["Gitalk"],
+          perPage: 10,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false,
+          proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token'
+        });
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="javascript:void(0);" target="" rel="nofollow noopener"><span>来自于一枚正在努力的小前端</span></a> 
+  </div>
+  
+
+  
+
+  
+
+  <!-- 网站上线计时 -->
+  <div>
+    <span id="timeDate">载入天数...</span>
+    <span id="times">载入时分秒...</span>
+    <script>
+    var now = new Date();
+    function createtime(){
+        var grt= new Date("05/12/2021 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if(String(mnum).length ==1 ){
+                  mnum = "0" + mnum;
+        }
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if(String(snum).length ==1 ){
+                  snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  //此次自定义显示内容
+        document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+    }  //此次自定义显示内容
+    setInterval("createtime()",250);
+    </script>
+  </div>
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/yinghua.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
