@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;light&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="rgba(192,149,83,.4)">
+  <meta name="description" content="函数基础知识大多已经掌握了，现在来看一下进阶知识吧！">
+  <meta name="author" content="Shallow">
+  <meta name="keywords" content="">
+  
+  <title>函数进阶 - Shallow Ink&#39;s  Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/gundongtiao.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>浅墨赋殇</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_self" href="https://shallowink-cloud.github.io/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_self" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_self" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_self" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_self" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+        <li></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/dmbg-1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="函数进阶">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-21 11:35" pubdate>
+        2021年5月21日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">函数进阶</h1>
+            
+            <div class="markdown-body">
+              <h1 id="函数进阶"><a href="#函数进阶" class="headerlink" title="函数进阶"></a>函数进阶</h1><h2 id="回顾函数的定义方式"><a href="#回顾函数的定义方式" class="headerlink" title="回顾函数的定义方式"></a>回顾函数的定义方式</h2><ul>
+<li>函数声明</li>
+</ul>
+<p>ps.可以在函数声明之前调用函数，因为 function 声明会提升</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;声明函数必须定义函数名&quot;</span>);<br>&#125;<br>foo();<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>函数表达式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> fun = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;函数表达式声明函数&quot;</span>);<br>&#125;<br>fun();<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>构造函数 new Function</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Fn</span> (<span class="hljs-params"></span>) </span>&#123;<br>	<span class="hljs-built_in">this</span>.a = a;<br>&#125;<br><span class="hljs-comment">//或者</span><br><span class="hljs-keyword">var</span> Fn = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) </span>&#123;<br>    <span class="hljs-built_in">this</span>.a = a;<br>&#125;<br><span class="hljs-comment">//但是调用构造函数必须：</span><br><span class="hljs-keyword">var</span> f1 = <span class="hljs-keyword">new</span> Fn(a);<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="函数声明与函数表达式的区别"><a href="#函数声明与函数表达式的区别" class="headerlink" title="函数声明与函数表达式的区别"></a>函数声明与函数表达式的区别</h2><ul>
+<li>函数声明必须有名字</li>
+<li>函数声明会函数提升，在预解析阶段就已创建，声明前后都可以调用</li>
+<li>函数表达式类似于给变量赋值</li>
+<li>函数表达式可以没有名字，例如匿名函数</li>
+<li>函数表达式没有函数提升（只有变量声明提升），在执行阶段创建，必须在表达式创建之后才可以调用</li>
+</ul>
+<p>结论：推荐使用函数声明方式进行对函数定义</p>
+<h2 id="函数声明提升拓展"><a href="#函数声明提升拓展" class="headerlink" title="函数声明提升拓展"></a>函数声明提升拓展</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 提前调用</span><br><span class="hljs-comment">// fn(); 现代浏览器会判断 if 作用域内函数只进行变量声明提升而报错，不能函数声明提升</span><br><span class="hljs-built_in">console</span>.log(fn);<span class="hljs-comment">//现代浏览器输出 undefined</span><br><span class="hljs-comment">// 进行 if 语句的函数声明提升</span><br><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;fn-true&#x27;</span>);<br>    &#125;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;fn-false&#x27;</span>);<br>    &#125;<br>&#125;<br>fn();<br></code></pre></td></tr></table></figure>
+
+<p>在现代浏览器中 if  块级作用域内的函数声明不会提升，而只会执行变量提升，因此：</p>
+<blockquote>
+<p>在函数声明前调用函数会直接报错 – xxx 不是一个函数</p>
+<p>在函数声明前输出函数变量值内容 为 <code>undefined</code></p>
+<p>结论：只进行了 变量的提升</p>
+</blockquote>
+<p>在现代浏览器中 上述代码结果为 <code>fn-true</code></p>
+<p>而在老版本浏览器中上述代码结果为 <code>fn-false</code></p>
+<p>原因：新版本浏览器遭受了块级作用域的限制，而老版本浏览器没有限制进行了函数声明提升</p>
+<p>以下是<strong>兼容</strong>方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> fn;<br><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123;<br>    fn = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;fn-true&#x27;</span>);<br>    &#125;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    fn = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;fn-false&#x27;</span>);<br>    &#125;<br>&#125;<br>fn();<br></code></pre></td></tr></table></figure>
+
+<p>这样一来就不存在函数声明提升导致的新老版本浏览器结果不同的情况了</p>
+<h2 id="通过构造函数的方式定义函数"><a href="#通过构造函数的方式定义函数" class="headerlink" title="通过构造函数的方式定义函数"></a>通过构造函数的方式定义函数</h2><p>这边再来补充一种完全不会用到的定义函数方式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 函数本身也是一种对象</span><br><span class="hljs-keyword">var</span> fun = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Function</span> (<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;var a = 1; console.log(a + b);&#x27;</span>);<br>fun(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);<br><span class="hljs-built_in">console</span>.dir(fun);<br></code></pre></td></tr></table></figure>
+
+<p>emmmm….over！知道即可</p>
+<h2 id="函数的调用以及-this-的指向"><a href="#函数的调用以及-this-的指向" class="headerlink" title="函数的调用以及 this 的指向"></a>函数的调用以及 this 的指向</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 1.普通的函数，是通过 给函数名或者变量名添加 () 方式执行的</span><br><span class="hljs-comment">// 内部的 this 指向 window</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fun</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);<br>&#125;<br>fun();<br><span class="hljs-comment">//2. 构造函数，是通过 new 关键字进行调用</span><br><span class="hljs-comment">// 内部的 this 指向 将来创建的实例对象</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params">name</span>) </span>&#123;<br>    <span class="hljs-built_in">this</span>.name = name;<br>&#125;<br><span class="hljs-keyword">var</span> p1 = Person(<span class="hljs-string">&#x27;zs&#x27;</span>);<br><span class="hljs-comment">// 3.对象中的方法，通过对象打点调用函数，然后加小括号</span><br><span class="hljs-comment">// 内部 this 默认指向我们调用的对象自己</span><br><span class="hljs-keyword">var</span> o = &#123;<br>    <span class="hljs-attr">sayHi</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;haha&#x27;</span>);<br>    &#125;<br>&#125;<br>o.sayHi();<br><span class="hljs-comment">// 4.事件函数，不需要加特殊符号执行，只要事件被触发它就会自动执行函数</span><br><span class="hljs-comment">// 内部 this 指向触发事件的事件源</span><br><span class="hljs-built_in">document</span>.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;事件&#x27;</span>);<br>&#125;<br><span class="hljs-comment">// 5.定时器和延时器中的函数，不需要加特殊符号，只要执行后，在规定时间自动执行</span><br><span class="hljs-comment">// 内部 this 默认指向window</span><br><span class="hljs-built_in">setInterval</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;time&#x27;</span>);<br>&#125;,<span class="hljs-number">1000</span>);<br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;stop&#x27;</span>);<br>&#125;,<span class="hljs-number">1000</span>);<br></code></pre></td></tr></table></figure>
+
+<p><strong>函数内 this 指向的不同场景</strong></p>
+<ul>
+<li>函数的调用方式决定了 this 指向的不同：</li>
+</ul>
+<p>函数调用方式不同，this 指向就不一样</p>
+<table>
+<thead>
+<tr>
+<th>调用方式</th>
+<th>非严格模式</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>普通函数调用</td>
+<td>window</td>
+<td>严格模式下是 undefined</td>
+</tr>
+<tr>
+<td>构造函数调用</td>
+<td>实例对象</td>
+<td>原型方法中 this 也是实例对象</td>
+</tr>
+<tr>
+<td>对象方法调用</td>
+<td>该方法所处对象</td>
+<td>紧挨着的对象</td>
+</tr>
+<tr>
+<td>事件绑定的方法</td>
+<td>绑定事件的对象</td>
+<td></td>
+</tr>
+<tr>
+<td>定时器函数</td>
+<td>window</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="函数原型对象上的方法"><a href="#函数原型对象上的方法" class="headerlink" title="函数原型对象上的方法"></a>函数原型对象上的方法</h2><h3 id="call-方法"><a href="#call-方法" class="headerlink" title="call( )方法"></a>call( )方法</h3><p><strong>call( )方法</strong></p>
+<ul>
+<li><p>call( )方法调用一个函数，其具有一个指定的 this 值和分别地提供的参数（参数列表）</p>
+<ul>
+<li>注意：该方法的作用和 apply( ) 方法类似，只有一个区别，就是 call( ) 方法接受的是若干个参数的列表，而 apply( )方法接受的是一个包含多个参数的数组</li>
+<li>语法：</li>
+</ul>
+<p>fun.call(thisArg,arg1,arg2,arg3,…)</p>
+<ul>
+<li>thisArg</li>
+</ul>
+<p>在 fun 函数运行时指定的 this 值</p>
+<p>如果指定了 null 或者 undefined 则内部 this 指向 window</p>
+<ul>
+<li>arg1,arg2,…</li>
+</ul>
+<p>指定的参数列表</p>
+<p><strong>call方法应用–给类数组加入属性</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// &#123;&#125; 的对象自身没有 push 类似的方法</span><br><span class="hljs-comment">// 类数组对象 类似于 getElementsByTagName</span><br><span class="hljs-keyword">var</span> o = &#123;<br>    <span class="hljs-number">0</span>: <span class="hljs-number">10</span>,<br>    <span class="hljs-number">1</span>: <span class="hljs-number">20</span>,<br>    <span class="hljs-number">2</span>: <span class="hljs-number">30</span>,<br>    <span class="hljs-attr">length</span>: <span class="hljs-number">3</span><br>&#125;<br><span class="hljs-comment">// 检测下能否正常输出，由于标识符不能为数字开头 所以不能 o.0 进行调用</span><br><span class="hljs-built_in">console</span>.log(o[<span class="hljs-number">0</span>]);<br><span class="hljs-comment">// 利用数组中的 push 方法，指定内部的 this 对象 o，就可以处理类数组对象的数据</span><br><span class="hljs-built_in">Array</span>.prototype.push.call(o,<span class="hljs-number">50</span>);<br><span class="hljs-built_in">console</span>.log(o);<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="apply-方法"><a href="#apply-方法" class="headerlink" title="apply( )方法"></a>apply( )方法</h3><p><strong>apply( )方法</strong></p>
+<ul>
+<li>apply( ) 方法调用一个函数，第一个参数是一个指定的 this 值，第二个参数是以一个数组（或类似数组的对象）形式提供的参数</li>
+<li>注意：该方法的作用和 call( ) 方法类似，只有一个区别，就是 call( ) 方法接受的若干个参数的列表，而 apply( ) 方法接受的是一个包含多个参数的数组</li>
+<li>语法</li>
+</ul>
+<p>fun.apply(thisArg,[argsArray])</p>
+<p><strong>apply 方法应用–快速求数组最大值以及把数组转化为数字呈现</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 定义一个数组，利用 apply 方法 ，可以将它拆开进行操作var arr = [1,3,5,6,8,10];// 利用 apply 方法，将数组传给 max 的第二个参数console.log(Math.max.apply(Math,arr));// 利用 apply 方法，将数组内容呈数字展示出来console.log.apply(console,arr);</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="bind-方法"><a href="#bind-方法" class="headerlink" title="bind( )方法"></a>bind( )方法</h3><ul>
+<li>bind( ) 函数会创建一个新函数（称为绑定函数），新函数与被调函数（绑定函数的目标函数）具有相同的函数体（在 ECMAScript 5 规范中内置的 call 属性）</li>
+<li>当目标函数被调用时 this 值绑定到 bind( ) 的第一个参数，该参数不能被重写。绑定函数被调用时，bind( ) 也接受预设的参数提供给原函数</li>
+<li>一个绑定函数也能使用 new 操作符创建对象：这种行为就像把原函数当成构造器。提供的 this 值被忽略，同时调用时的参数被提供给模拟函数</li>
+<li>语法：</li>
+</ul>
+<p>fun.bind(thisArg,arg1,arg2,arg3,…)</p>
+<p><strong>bind方法应用–更改定时器，延时器，事件函数中的 this</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 想修改定时器的函数内的 this （不需要执行函数的情况）var o = &#123;    name: &#x27;zs&#x27;,    age: 18,    s: function () &#123;        setInterval(function () &#123;            console.log(this.age);        &#125;.bind(this),1000);    &#125;&#125;o.s();// 更改事件函数中的 thisdocument.onclick = function () &#123;    console.log(this);&#125;.bind(o);</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="函数的其他成员"><a href="#函数的其他成员" class="headerlink" title="函数的其他成员"></a>函数的其他成员</h2><ul>
+<li>arguments 实参集合</li>
+<li>arguments.callee  函数本身，arguments的一个属性</li>
+<li>fn.caller 函数的调用者，如何在全局调用，返回的调用者为 null</li>
+<li>fn.length 形参的个数</li>
+<li>fn.name 函数的名称</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 看一下函数内部的成员function foo () &#123;    // 实际应用中，会在函数内部直接使用 一个 arguments 的关键字    console.log(arguments);    // 函数本身，直接用函数名调用即可，不需要使用 arguments.callee    console.log(arguments.callee);    // 以类数组方式来存储，函数传入的所有实参数据    console.log(foo.arguments);    // 函数的调用者，函数在哪个作用域调用，caller就是谁，如果在全局作用于，则值就是 null    console.log(foo.caller);    // 函数形参的个数    console.log(foo.length);    // 函数名称    console.log(foo.name);&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>灵活使用 arguments 类数组对象，可以记录所有实参，来制作一个 max() 函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">max</span>(<span class="hljs-params"></span>) </span>&#123;    <span class="hljs-comment">//判断参数中最大的数     return Math.max.apply(Math,arguments);&#125;console.log(max(1,3,6,8));// 啊哦，这好像不算制作 max() 函数，再来一遍function max() &#123;    //判断参数中最大的数     var nowMax = arguments[0];    for(var i = 0; i &lt; arguments.length; i++) &#123;        arguments[i] &gt; nowMax ? nowMax = arguments[i] : null;    &#125;    return nowMax;&#125;console.log(max(1,3,6,8));	</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><ul>
+<li>函数可以作为参数</li>
+<li>函数可以作为返回值</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 高阶函数// 1.函数作为另一个函数的参数// 定义一个函数，吃饭函数，吃完饭之后，可以做其他的事情，看电影、聊天、看书function eate (fn) &#123;    console.log(&#x27;吃晚饭&#x27;);    // 接下来的要做的事情是不固定    fn();&#125;eate(function () &#123;    console.log(&#x27;看电影&#x27;);&#125;)// 2.函数作为一个函数的返回值// 需求：通过同一段代码实现以下效果// 输出： 100 + m// 输出： 1000 + m// 输出： 10000 + mfunction outer (n) &#123;    return function (m) &#123;        console.log(m + n);    &#125;&#125;// 在外部执行 inner 函数// 100 + mvar fun = outer(100);fun (3);fun (13);fun (23);fun (33);// 函数的多次利用var fun1 = outer(100);fun (22);</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="函数闭包"><a href="#函数闭包" class="headerlink" title="函数闭包"></a>函数闭包</h2><h3 id="回顾作用域、作用域链、预解析"><a href="#回顾作用域、作用域链、预解析" class="headerlink" title="回顾作用域、作用域链、预解析"></a>回顾作用域、作用域链、预解析</h3><ul>
+<li>全局作用域</li>
+<li>函数作用域</li>
+<li>没有块级作用域</li>
+<li>内层作用域可以访问外层作用域，反之则不行</li>
+</ul>
+<h3 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包"></a>什么是闭包</h3><ul>
+<li>一个函数和对其周围状态（lexical environment，词法环境）的引用捆绑在一起（或者说函数被引用包围），这样的组合就是闭包（closure）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域。在 JavaScript 中，每当创建一个函数，闭包就会在函数创建的同时被创建出来</li>
+</ul>
+<p>通俗解释：</p>
+<p>​    函数定义时天生就能记住自己生成的作用域和函数自己，将它们形成一个密闭环境，这就是闭包。无论函数以任何方式在任何地方进行调用，都会回到自己定义时的密闭环境进行执行</p>
+<h3 id="观察闭包"><a href="#观察闭包" class="headerlink" title="观察闭包"></a>观察闭包</h3><ul>
+<li>从广义上来说，定义在全局的函数也是一个闭包，只是我们没办法将这样的函数拿到更外面的作用域进行调用，从而观察闭包的特点</li>
+<li>闭包是天生存在的，不需要额外的结构，但是我们为了方便观察闭包的特点，需要利用一些特殊结构将一个父函数内部的子函数拿到父函数外部进行调用，从而观察闭包的存在</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 体会闭包// 将一个内部函数拿到父函数外部调用，观察是否还能调用父函数内部的变量function outer () &#123;    var a = 10;    function inner () &#123;        console.log(a);    &#125;    // 返回内部函数    return inner;&#125;// 将内部函数保存var inn = outer();// 确认 inn 就是内部的那个 inner 函数console.log(inn);// 试图直接调用 innerinn();// 内部函数按道理来说应该会查找全局的 a 变量// 但是输出的真正结果是 10，来自 outer 函数，证明了闭包的存在</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="闭包的用途"><a href="#闭包的用途" class="headerlink" title="闭包的用途"></a>闭包的用途</h3><ul>
+<li>可以在函数外部读取函数内部的成员</li>
+<li>让函数内成员始终存活在内存中</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 闭包的用途// 将一个内部函数拿到父函数外部调用，观察是否还能调用父函数内部的变量function outer () &#123;    // 形成闭包环境中的变量不是一成不变的，可以进行修改    var a = 10;    function inner () &#123;        console.log(a++);    &#125;    // 返回内部函数    return inner;&#125;// 将内部函数保存var inn = outer();// 确认 inn 就是内部的那个 inner 函数console.log(inn);// 试图直接调用 innerinn();//10inn();//11</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>因此：调用的内存函数只是认识闭包中的局部变量（词法环境），在调用内部函数时不会去执行外部函数的内容，当内层函数被调用时，函数执行会回到闭包区域内进行</strong></p>
+<h3 id="闭包的问题"><a href="#闭包的问题" class="headerlink" title="闭包的问题"></a>闭包的问题</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 给数组中的每一项赋值一个 函数var arr = [];for (var i = 0; i &lt;= 10; i++) &#123;    arr[i] = function () &#123;        console.log(i);    &#125;&#125;// 目的：调用数组对应的项，输出它的对应下标arr[0]();//11arr[1]();//11arr[2]();//11</span><br></code></pre></td></tr></table></figure>
+
+<p>问题：函数暴露在全局作用域内，全局作用域中的全局变量 i 影响了函数输出，达不到想要的效果</p>
+<p><strong>解决方案：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 给数组中的每一项赋值一个 函数var arr = [];for (var i = 0; i &lt;= 10; i++) &#123;    // 利用自调用函数产生闭包，闭包内每次记录当时循环时的 i 值，这样函数内部就不会被全局作用域下的 i 影响    (function (i) &#123;        arr[i] = function () &#123;            console.log(i);        &#125;    &#125;)(i)&#125;// 目的：调用数组对应的项，输出它的对应下标arr[0]();//0arr[1]();//1arr[2]();//2</span><br></code></pre></td></tr></table></figure>
+
+<p>方案：循环内部多套一层自调用函数，产生闭包。第一个传入的 i 是形参，第二个传入的 i 是实参，达到了一个记录当时循环时的 i 值（var i = i）的效果，调用内部函数时会回到闭包内执行函数，不会受到外部全局变量中 i 的影响。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%87%BD%E6%95%B0/">函数</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%97%AD%E5%8C%85/">闭包</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    作者：浅墨赋殇
+                  
+                </p>   
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出哦！
+                  
+                </p>
+              
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%BB%A7%E6%89%BF/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">继承</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/JavaScript%E5%B8%B8%E8%A7%81%E7%9A%84%E4%B8%89%E7%A7%8D%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F%E6%96%B9%E5%BC%8F/">
+                        <span class="hidden-mobile">JavaScript常见的三种数组排序方式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+          clientID: 'd1db1ae56fc96adb2cab',
+          clientSecret: '06b6ed5c170a3b0ee400071d5d86d2473dbe30d0',
+          repo: 'ShallowInk-cloud.github.io',
+          owner: 'ShallowInk-cloud',
+          admin: "ShallowInk-cloud",
+          id: 'c2c262826c2f352748e61acadcb798cb',
+          language: 'zh-CN',
+          labels: ["Gitalk"],
+          perPage: 10,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false,
+          proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token'
+        });
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="javascript:void(0);" target="" rel="nofollow noopener"><span>来自于一枚正在努力的小前端</span></a> 
+  </div>
+  
+
+  
+
+  
+
+  <!-- 网站上线计时 -->
+  <div>
+    <span id="timeDate">载入天数...</span>
+    <span id="times">载入时分秒...</span>
+    <script>
+    var now = new Date();
+    function createtime(){
+        var grt= new Date("05/12/2021 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if(String(mnum).length ==1 ){
+                  mnum = "0" + mnum;
+        }
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if(String(snum).length ==1 ){
+                  snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  //此次自定义显示内容
+        document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+    }  //此次自定义显示内容
+    setInterval("createtime()",250);
+    </script>
+  </div>
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/yinghua.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
