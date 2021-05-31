@@ -190,7 +190,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.1k 字
+      5k 字
     </span>
   
 
@@ -200,7 +200,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      48
+      59
        分钟
     </span>
   
@@ -233,7 +233,55 @@
             <h1 style="display: none">JavaScript构造函数和原型对象</h1>
             
             <div class="markdown-body">
-              <h2 id="对于创建对象的几种方式"><a href="#对于创建对象的几种方式" class="headerlink" title="对于创建对象的几种方式"></a>对于创建对象的几种方式</h2><blockquote>
+              <h2 id="什么是对象？"><a href="#什么是对象？" class="headerlink" title="什么是对象？"></a><strong>什么是对象？</strong></h2><ul>
+<li>Everything is object （万物皆对象）</li>
+<li>我们可以从两个方面来理解</li>
+</ul>
+<ol>
+<li>对象是单个事物的抽象</li>
+<li>对象是一个容器，封装了属性（property）和方法（method）</li>
+</ol>
+<ul>
+<li><p>属性：对象的状态</p>
+</li>
+<li><p>方法：对象的行为</p>
+</li>
+<li><p>在实际开发中，对象是一个抽象的概念，可以将其简单理解为：<strong>数据集或功能集</strong></p>
+</li>
+<li><p>ECMAScript-262 把对象定义为：无序属性的集合，其属性可以包含基本值、对象或者函数</p>
+</li>
+</ul>
+<h2 id="什么是面向对象？"><a href="#什么是面向对象？" class="headerlink" title="什么是面向对象？"></a>什么是面向对象？</h2><ul>
+<li>面向对象编程 - object Oriented Programming，简称 OOP，是一种编程开发思想</li>
+<li>它将真实世界各种复杂的关系，抽象为一个个对象，然后由对象之间的分工与合作，完成对真实世界的模拟</li>
+</ul>
+<p><strong>面向对象与面向过程对比</strong></p>
+<ul>
+<li>面向过程就是亲力亲为，事无巨细，面面俱到，步步紧跟，有条不紊</li>
+<li>面向对象就是找一个对象，指挥得结果</li>
+<li>面向对象将执行者转变为指挥者</li>
+<li>面向对象不是面向过程的替代，而是面向过程的封装</li>
+</ul>
+<p><strong>面向对象的特性</strong></p>
+<ul>
+<li>封装性</li>
+<li>继承性</li>
+<li>[多态性]抽象</li>
+</ul>
+<p><strong>总结：</strong></p>
+<ul>
+<li>在面向对象程序开发思想中，每个对象都是功能中心，具有明确分工，可以完成接受信息、处理数据、发出信息等任务</li>
+<li>因此，面向对象编程具有灵活、代码可复用、高度模块化等有特点，容易维护开发，比起由一系列函数或指令组成的传统的过程式编程（procedural programming），更适合多人合作的大型软件项目</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;!DOCTYPE html&gt;<br>&lt;html lang=&quot;en&quot;&gt;<br>&lt;head&gt;<br>    &lt;meta charset=&quot;UTF-8&quot;&gt;<br>    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;<br>    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;<br>    &lt;title&gt;体验面向过程和面向对象&lt;/title&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>    &lt;script&gt;<br>        //面向过程<br>        // 定义学生的对象<br>        var std1 = &#123;name: &quot;Bob&quot;,score: 89&#125;;<br>        var std2 = &#123;name: &quot;Mike&quot;,score: 98&#125;;<br>        // 封装一个打印学生成绩的函数<br>        function printScore(student) &#123;<br>            console.log(&quot;姓名:&quot; + student.name + &quot;成绩:&quot; + student.score);<br>        &#125;<br>        // 具体调用函数打印对应成绩<br>        printScore(std1);<br>        printScore(std2);<br><br>        // 面向对象<br>        /* 首先考虑的不是整个流程,而是将一个学生当成一个对象,对象有两个属性存储性名和成绩,<br>        并且对象自己有打印成绩的功能,将所有跟学生有关的属性和行为都分装到对象身上<br>            在这个过程中,我们一直会有多个类似的的对象,可以利用构造函数的方法先进行封装,<br>        然后创建单独的对象<br>        抽象所有的数据行为成一个模板 (class)<br>        */<br>       function Student(name,score) &#123;<br>           this.name = name;<br>           this.score = score;<br>           this.printScore = function () &#123;<br>               console.log(&quot;姓名:&quot; + this.name + &quot;分数:&quot; + this.score);<br>           &#125;<br>       &#125;<br>        //  根据模板创建具体的实例对象 (Instance)<br>        var stu1 = new Student(&quot;Bob&quot;,89);<br>        var stu2 = new Student(&quot;Mike&quot;,98);<br>        // 调用实例对象自己的方法<br>       stu1.printScore();<br>       stu2.printScore();<br><br>    &lt;/script&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>面向对象的设计思想</strong></p>
+<ul>
+<li>抽象出 Class（构造函数）</li>
+<li>根据 Class（构造函数）创建 Instance（实例）</li>
+<li>指挥 Instance（实例） 得结果</li>
+</ul>
+<h2 id="对于创建对象的几种方式"><a href="#对于创建对象的几种方式" class="headerlink" title="对于创建对象的几种方式"></a>对于创建对象的几种方式</h2><blockquote>
 <p>既然讲到了创建对象，我们就先把创建对象的几种方式先罗列一下，也算是给后面的重点做一个铺垫</p>
 <p>对象在 JavaScript 里面的重要性相信不用我多说，万物皆对象呀！</p>
 </blockquote>
@@ -331,7 +379,7 @@
 <p>这样我们就需要 原型对象 来帮我们解决这个问题了</p>
 <p>还记得前面提到 <code>constructor</code>属性么，我们现在要来深入理解下构造函数</p>
 <h2 id="构造函数的原型对象"><a href="#构造函数的原型对象" class="headerlink" title="构造函数的原型对象"></a>构造函数的原型对象</h2><p>补充：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">    静态成员和实例成员：</span><br><span class="hljs-comment">    ·使用构造函数方法创建对象时，可以给构造函数和创建实例对象添加属性和方法，这些属性和方法都叫做成员</span><br><span class="hljs-comment">    ·实例成员：在构造函数内部添加给 this 的成员，属于实例对象的成员，在创建实例对象后必须有对象调用</span><br><span class="hljs-comment">    ·静态成员：添加给构造函数自身的成员，只能使用构造函数调用，不能使用生成的实例对象调用</span><br><span class="hljs-comment">--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">	<span class="hljs-comment">// 自定义构造函数</span></span><br><span class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params">name,age</span>) </span>&#123;</span><br><span class="javascript">    <span class="hljs-comment">// 实例成员，通过将来生成的实例对象进行调用的成员</span></span><br><span class="javascript">    <span class="hljs-comment">// 创建时直接调用给函数内部的 this</span></span><br><span class="javascript">    <span class="hljs-built_in">this</span>.name = name;</span><br><span class="javascript">    <span class="hljs-built_in">this</span>.age = age;</span><br><span class="javascript">    <span class="hljs-built_in">this</span>.sayName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">        <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name);</span><br><span class="javascript">    &#125;</span><br><span class="javascript">&#125;</span><br><span class="javascript"><span class="hljs-comment">// 静态成员 -- 直接给构造函数添加的成员，无法被实例对象调用</span></span><br><span class="javascript">Person.version = <span class="hljs-string">&quot;1.0&quot;</span>;</span><br><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">    静态成员和实例成员：</span><br><span class="hljs-comment">    ·使用构造函数方法创建对象时，可以给构造函数和创建实例对象添加属性和方法，这些属性和方法都叫做成员</span><br><span class="hljs-comment">    ·实例成员：在构造函数内部添加给 this 的成员，属于实例对象的成员，在创建实例对象后必须由对象调用</span><br><span class="hljs-comment">    ·静态成员：添加给构造函数自身的成员，只能使用构造函数调用，不能使用生成的实例对象调用</span><br><span class="hljs-comment">--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">	<span class="hljs-comment">// 自定义构造函数</span></span><br><span class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params">name,age</span>) </span>&#123;</span><br><span class="javascript">    <span class="hljs-comment">// 实例成员，通过将来生成的实例对象进行调用的成员</span></span><br><span class="javascript">    <span class="hljs-comment">// 创建时直接调用给函数内部的 this</span></span><br><span class="javascript">    <span class="hljs-built_in">this</span>.name = name;</span><br><span class="javascript">    <span class="hljs-built_in">this</span>.age = age;</span><br><span class="javascript">    <span class="hljs-built_in">this</span>.sayName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">        <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name);</span><br><span class="javascript">    &#125;</span><br><span class="javascript">&#125;</span><br><span class="javascript"><span class="hljs-comment">// 静态成员 -- 直接给构造函数添加的成员，无法被实例对象调用</span></span><br><span class="javascript">Person.version = <span class="hljs-string">&quot;1.0&quot;</span>;</span><br><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>以上的知识点是对构造函数的补充</p>
 <p>接下来我们的重点是原型对象</p>
